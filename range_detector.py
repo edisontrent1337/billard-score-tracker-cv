@@ -11,6 +11,8 @@ import cv2
 import argparse
 from operator import xor
 
+import imutils
+
 
 def callback(value):
     pass
@@ -37,6 +39,7 @@ def get_arguments():
     ap.add_argument('-p', '--preview', required=False,
                     help='Show a preview of the image after applying the mask',
                     action='store_true')
+
     args = vars(ap.parse_args())
 
     if not xor(bool(args['image']), bool(args['webcam'])):
@@ -66,6 +69,7 @@ def main():
 
     if args['image']:
         image = cv2.imread(args['image'])
+        image = imutils.resize(image, width=1000)
 
         if range_filter == 'RGB':
             frame_to_thresh = image.copy()
